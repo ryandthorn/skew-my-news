@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Skew My News!</title>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="main.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Skew My News!</h1>
+  </header>
+  <main>
+    <form>
+      <label for="search">Search for headlines</label>
+      <input type="text" name="search" id="js-search" required aria-required><br>
+      <label for="slider">Choose left/center/right</label>
+      <input type="range" name="slider" id="js-slider" min="0" max="2" value="1"><br>
+      <button type="submit">Skew My News!</button>
+    </form>
+  </main>
+  <footer>
+    <h2>About</h2>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
