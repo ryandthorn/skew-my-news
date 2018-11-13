@@ -129,8 +129,25 @@ function getNews(searchQuery, sliderVal) {
 
   fetch(url, options)
     .then(response => response.json())
-    .then(responseJson => console.log(responseJson));
+    .then(responseJson => displayResults(responseJson));
 }
+
+function displayResults(res) {
+  $('#js-results').empty();
+  
+  for (let i = 0; i < res.articles.length; i++) {
+    $('#js-results').append(`
+      <li>
+        <h3>${res.articles[i].title}</h3>
+        <p>Source: ${res.articles[i].source.name}</p>
+        <p>${res.articles[i].description}</p>
+        <a href="${res.articles[i].url}">Full text</a>
+      </li>
+      <hr>
+    `);
+  }
+  $('section').removeClass('hidden');
+} 
 
 function watchForm() {
   $('form').submit(event => {
