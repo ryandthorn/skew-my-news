@@ -134,7 +134,11 @@ function getNews(searchQuery, sliderVal) {
 
 function displayResults(res) {
   $('#js-results').empty();
-  
+
+  if (res.articles.length === 0) {
+    $('section').append(`<p>No results found</p>`);
+  }
+
   for (let i = 0; i < res.articles.length; i++) {
     $('#js-results').append(`
       <li>
