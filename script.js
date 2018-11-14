@@ -136,7 +136,7 @@ function displayResults(res) {
   $('#js-results').empty();
 
   if (res.articles.length === 0) {
-    $('section').append(`<p>No results found</p>`);
+    $('#js-results').append(`<li>No results found</li>`);
   }
 
   for (let i = 0; i < res.articles.length; i++) {
@@ -160,6 +160,12 @@ function watchForm() {
     let sliderVal = $('#js-slider').val();
     getNews(searchQuery, sliderVal);
   });
+
+  $('input[type=range]').on('input', function() {
+    let searchQuery = $('#js-search').val();
+    let sliderVal = $('#js-slider').val();
+    getNews(searchQuery, sliderVal);
+  })
 }
 
 $(watchForm);

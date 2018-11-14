@@ -15,22 +15,15 @@
 <body>
   <header>
     <h1>Skew My News!</h1>
+    <form>
+      <input type="text" name="search" id="js-search" placeholder="Search headlines" required aria-required><br>
+      <input type="range" name="slider" id="js-slider" min="0" max="4" value="2"><br>
+      <button type="submit">Go</button>
+    </form>
   </header>
   <main>
-    <form>
-      <label for="search">Search headlines: </label>
-      <input type="text" name="search" id="js-search" required aria-required><br>
-      <label for="slider">Choose your bias: </label>
-      <input type="range" name="slider" id="js-slider" min="0" max="4" value="2"><br>
-      <button type="submit">Skew My News!</button>
-    </form>
-    <section class="hidden">
-      <ul id="js-results"></ul>
-    </section>
+    <ul id="js-results"></ul>
   </main>
-  <footer>
-    <h2>About</h2>
-  </footer>
   <script src="script.js"></script>
 </body>
 
