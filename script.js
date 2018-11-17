@@ -94,11 +94,15 @@ function formatQueryParams(params) {
   return queryItems.join('&');
 }
 
-function generateSourceValue(bias) {
-  return newsSources
-    .filter(source => source.bias.indexOf(bias) > -1)
-    .map(source => source.id)
-    .join(',');
+function reduceSourceValue(input) {
+  return newsSources.reduce((acc, cur) => {
+      const check = cur.bias.find(elem => elem === input);
+      if (check !== undefined) {
+        const comma = acc !== '' ? ',' : '';
+        acc += comma + cur.id; 
+      }
+      return acc 
+    }, '');
 }
 
 function getNews(searchQuery, sliderVal) {
@@ -107,15 +111,15 @@ function getNews(searchQuery, sliderVal) {
   };
   
   if (sliderVal === '0') {
-    params.sources = generateSourceValue('left');
+    params.sources = reduceSourceValue('left');
   } else if (sliderVal === '1') {
-    params.sources = generateSourceValue('center-left');
+    params.sources = reduceSourceValue('center-left');
   } else if (sliderVal === '2') {
-    params.sources = generateSourceValue('center');
+    params.sources = reduceSourceValue('center');
   } else if (sliderVal === '3') {
-    params.sources = generateSourceValue('center-right');
+    params.sources = reduceSourceValue('center-right');
   } else if (sliderVal === '4'){
-    params.sources = generateSourceValue('right');
+    params.sources = reduceSourceValue('right');
   }
 
   const queryParams = formatQueryParams(params)
