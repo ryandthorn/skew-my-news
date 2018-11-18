@@ -122,7 +122,7 @@ function getNews(searchQuery, sliderVal) {
     params.sources = reduceSourceValue('right');
   }
 
-  const queryParams = formatQueryParams(params)
+  const queryParams = formatQueryParams(params);
   const url = `https://newsapi.org/v2/top-headlines?${queryParams}`;
   
   // Exposing API key in source code might be a problem
@@ -133,10 +133,10 @@ function getNews(searchQuery, sliderVal) {
 
   fetch(url, options)
     .then(response => response.json())
-    .then(responseJson => displayResults(responseJson));
+    .then(responseJson => displayResults(responseJson, sliderVal));
 }
 
-function displayResults(res) {
+function displayResults(res, sliderVal) {
   $('#js-results').empty();
 
   if (res.articles.length === 0) {
@@ -147,14 +147,28 @@ function displayResults(res) {
     $('#js-results').append(`
       <li>
         <h3>${res.articles[i].title}</h3>
-        <p>Source: ${res.articles[i].source.name}</p>
+        <p><strong>${res.articles[i].source.name}</strong></p>
         <p>${res.articles[i].description}</p>
         <a href="${res.articles[i].url}">Full text</a>
       </li>
       <hr>
     `);
   }
-  $('section').removeClass('hidden');
+
+  if (sliderVal === '0') {
+    $("h3").css("color", "#0200a2");
+  } else if (sliderVal === '1') {
+    $("h3").css("color", "#0c50fc");
+  } else if (sliderVal === '2') {
+    $("h3").css("color", "#3d3d3d");
+  } else if (sliderVal === '3') {
+    $("h3").css("color", "#ff2146");
+  } else if (sliderVal === '4'){
+    $("h3").css("color", "#a30000");;
+  }
+
+  $('#js-results').removeClass('hidden');
+
 } 
 
 function watchForm() {

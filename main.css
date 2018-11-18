@@ -16,27 +16,69 @@ body:not(:-moz-handler-blocked) fieldset {
 
 h1 {
   text-align: center;
+  font-family: 'Bangers', cursive;
+  font-display: swap;
+  font-size: 3.5em;
+  margin: 20px 0;
 }
 
 fieldset {
-  width: 70%;
+  font-size: 1.1em;
   margin: 0 auto;
 }
 
 input[type="text"] {
-  width: 70%;
+  font-family: 'Open Sans', sans-serif;
+  
+  height: 35px;
+  width: 75%;
+  padding-left: 5px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
 }
 
 input[type="submit"] {
-  width: 25%;
+  height: 35px;
+  width: 20%;
+  font-family: 'Bangers', cursive;
+  background-color: rgb(68, 248, 68);
+  border: 0 none;
+  border-radius: 5px;
 }
 
 input[type="range"] {
   display: block;
-  width: 70%;
-  margin: 0 auto;
-  padding: 10px 0;
+  margin: 30px auto;
+
+  -webkit-appearance: none;
+  width: 80%;
+  height: 5px;
+  border-radius: 5px;   
+  background: rgb(0, 0, 0);
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
 }
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; 
+    background: rgb(234, 0, 255);
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgb(234, 0, 255);
+    cursor: pointer;
+}
+
 
 legend, label {
   display: none;
@@ -45,9 +87,32 @@ legend, label {
 main {
   width: 85%;
   margin: 0 auto;
+  font-family: 'Times', sans-serif;
+  font-display: swap;
 }
 
 ul {
+  width: 90%;
+  margin: 0 auto;
   list-style-type: none;
   padding: 0 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+h3 {
+  font-family: 'Lora', serif;
+}
+
+li p {
+  font-family: 'Times', serif;
+  line-height: 125%;
+}
+
+li a {
+  color: rgb(234, 0, 255);
+}
+
+.hidden {
+  display: none;
 }

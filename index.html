@@ -8,6 +8,7 @@
   <title>Skew My News!</title>
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="main.css">
+  <link href="https://fonts.googleapis.com/css?family=Bangers|Open+Sans|Lora" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
 </head>
@@ -19,16 +20,16 @@
 
   <main role="main">
       <form>
-          <fieldset>
-            <legend>Search form</legend>
-            <label for="search">Search headlines</label>
-            <input type="text" name="search" id="js-search" placeholder="Search headlines" required aria-required>
-            <input type="submit" value="Go">
-            <label for="slider">Choose your bias on the slider</label>
-            <input type="range" name="slider" id="js-slider" min="0" max="4" value="2">
-          </fieldset>
-        </form>
-    <ul id="js-results"></ul>
+        <fieldset>
+          <legend>Search form</legend>
+          <label for="search">Search headlines</label>
+          <input type="text" name="search" id="js-search" placeholder="Search top US headlines">
+          <input type="submit" value="Go!">
+          <label for="slider">Choose your bias on the slider</label>
+          <input type="range" name="slider" id="js-slider" min="0" max="4" value="2">
+        </fieldset>
+      </form>
+    <ul id="js-results" class="hidden"></ul>
   </main>
 
   <script src="script.js"></script>
