@@ -14,20 +14,30 @@ body:not(:-moz-handler-blocked) fieldset {
 }
 /***/
 
+body {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 h1 {
   text-align: center;
   font-family: 'Bangers', cursive;
   font-display: swap;
   font-size: 3.5em;
-  margin: 20px 0;
+  margin: 20px auto;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 fieldset {
   font-size: 1.1em;
-  margin: 0 auto;
 }
 
 input[type="text"] {
+  float: left;
   font-family: 'Open Sans', sans-serif;
   height: 35px;
   width: 75%;
@@ -37,7 +47,8 @@ input[type="text"] {
 }
 
 input[type="submit"] {
-  height: 35px;
+  float: right;
+  height: 39px;
   width: 20%;
   font-family: 'Bangers', cursive;
   background-color: rgb(68, 248, 68);
@@ -46,8 +57,9 @@ input[type="submit"] {
 }
 
 input[type="range"] {
+  clear: both;
   display: block;
-  margin: 30px auto;
+  margin: 70px auto 30px auto;
 
   -webkit-appearance: none;
   width: 80%;
