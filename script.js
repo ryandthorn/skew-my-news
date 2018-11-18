@@ -149,7 +149,7 @@ function displayResults(res, sliderVal) {
         <h3>${res.articles[i].title}</h3>
         <p><strong>${res.articles[i].source.name}</strong></p>
         <p>${res.articles[i].description}</p>
-        <a href="${res.articles[i].url}">Full text</a>
+        <a href="${res.articles[i].url}">Read more</a>
       </li>
       <hr>
     `);
@@ -162,13 +162,12 @@ function displayResults(res, sliderVal) {
   } else if (sliderVal === '2') {
     $("h3").css("color", "#3d3d3d");
   } else if (sliderVal === '3') {
-    $("h3").css("color", "#ff2146");
+    $("h3").css("color", "#e21218");
   } else if (sliderVal === '4'){
-    $("h3").css("color", "#a30000");;
+    $("h3").css("color", "#a00106");;
   }
 
   $('#js-results').removeClass('hidden');
-
 } 
 
 function watchForm() {
