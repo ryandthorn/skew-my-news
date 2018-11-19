@@ -187,15 +187,18 @@ function getNews(searchQuery, sliderVal) {
 
   const queryParams = formatQueryParams(params);
   const url = `https://newsapi.org/v2/top-headlines?${queryParams}`;
-  
-  // Exposing API key in source code might be a problem?
   const options = {
     headers: new Headers({
       "X-Api-Key": "e8461a1257724e9c8b77b3e8cdbc5af1"})
   };
 
   fetch(url, options)
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
     .then(responseJson => displayResults(responseJson, sliderVal));
 }
 
