@@ -1,92 +1,115 @@
 'use strict';
 
-// Database of ids for News API sources
+// Database for News API sources
 const newsSources = [
   {
+    displayName: 'ABC News',
     id: 'abc-news',
     bias: ['center-left']
   },
   {
+    displayName: 'Associated Press',
     id: 'associated-press',
     bias: ['center']
   },
   {
+    displayName: 'BBC News',
     id: 'bbc-news',
     bias: ['center']
   },
   {
+    displayName: 'Bloomberg',
     id: 'bloomberg',
     bias: ['center']
   },
   {
+    displayName: 'Breitbart News',
     id: 'breitbart-news',
     bias: ['right']
   },
   {
+    displayName: 'CBS News',
     id: 'cbs-news',
     bias: ['center-left']
   },
   {
+    displayName: 'CNBC',
     id: 'cnbc',
     bias: ['center']
   },
   {
+    displayName: 'CNN',
     id: 'cnn',
     bias: ['left', 'center-left']
   },
   {
+    displayName: 'MSNBC',
     id: 'msnbc',
     bias: ['left']
   },
   {
-    id: 'nbc-news',
-    bias: ['center-left']
-  },
-  {
-    id: 'reuters',
-    bias: ['center']
-  },
-  {
-    id: 'the-american-conservative',
-    bias: ['center-right']
-  },
-  {
-    id: 'the-economist',
-    bias: ['center-left']
-  },
-  {
-    id: 'the-hill',
-    bias: ['center']
-  },
-  {
-    id: 'the-huffington-post',
-    bias: ['left']
-  },
-  {
+    displayName: 'National Review',
     id: 'national-review',
     bias: ['right']
   },
   {
+    displayName: 'NBC News',
+    id: 'nbc-news',
+    bias: ['center-left']
+  },
+  {
+    displayName: 'Reuters',
+    id: 'reuters',
+    bias: ['center']
+  },
+  {
+    displayName: 'The American Conservative',
+    id: 'the-american-conservative',
+    bias: ['center-right']
+  },
+  {
+    displayName: 'The Economist',
+    id: 'the-economist',
+    bias: ['center-left']
+  },
+  {
+    displayName: 'The Hill',
+    id: 'the-hill',
+    bias: ['center']
+  },
+  {
+    displayName: 'The Huffington Post',
+    id: 'the-huffington-post',
+    bias: ['left']
+  },
+  {
+    displayName: 'The New York Times',
     id: 'the-new-york-times',
     bias: ['left', 'center-left']
   },
   {
+    displayName: 'The Wall Street Journal',
     id: 'the-wall-street-journal',
     bias: ['center', 'center-right']
   },
   {
+    displayName: 'The Washington Post',
     id: 'the-washington-post',
     bias: ['center-left']
   },
   {
+    displayName: 'The Washington Times',
     id: 'the-washington-times',
     bias: ['center-right']
   },
   {
+    displayName: 'USA Today',
     id: 'usa-today',
     bias: ['center']
   }
 ];
+
+// Utility functions
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
@@ -94,16 +117,58 @@ function formatQueryParams(params) {
   return queryItems.join('&');
 }
 
-function reduceSourceValue(input) {
+function generateSourceString(bias) {
   return newsSources.reduce((acc, cur) => {
-      const check = cur.bias.find(elem => elem === input);
+      const check = cur.bias.find(elem => elem === bias);
       if (check !== undefined) {
         const comma = acc !== '' ? ',' : '';
         acc += comma + cur.id; 
       }
-      return acc 
+      return acc; 
     }, '');
 }
+
+function populateSources(bias) {
+  $('#source-list > ul').empty()
+
+  const sourceArray = newsSources.reduce((acc, cur) => {
+    let check = cur.bias.find(elem => elem === bias);
+    if (check) {
+      acc.push(cur.displayName);
+    } 
+    return acc;
+  }, []);
+  
+  sourceArray.forEach(source => {
+    $('#source-list > ul').append(`
+      <li>${source}</li>
+    `)
+  })
+}
+
+function generateAbout() {
+  $('footer').append(`
+  <h2>About</h2>
+  <p>This web app queries the <a href="https://newsapi.org" target="_blank">News API</a> to search for top headlines within a selected range of sources organized by ideological bias.</p>
+  <p>Bias of each source determined by <a href="https://www.allsides.com/media-bias/media-bias-ratings" target="_blank">AllSides Media Bias Ratings</a>.</p>
+  <p>Click on these tabs to see which sources correspond to each bias:</p>
+  <section id="js-sources">
+    <div id="js-tabs">
+      <div class="tab" id="blue"></div>
+      <div class="tab" id="lightblue"></div>
+      <div class="tab" id="grey"></div>
+      <div class="tab" id="lightred"></div>
+      <div class="tab" id="red"></div>
+    </div>
+    <div id="source-list">
+      <ul class="hidden"></ul>
+    </div>
+  </section>
+  <p>Copyright &copy; 2018 Ryan Thorn for Thinkful</p>
+`);
+}
+
+// Get articles from News API based on user input
 
 function getNews(searchQuery, sliderVal) {
   const params = {
@@ -111,15 +176,15 @@ function getNews(searchQuery, sliderVal) {
   };
   
   if (sliderVal === '0') {
-    params.sources = reduceSourceValue('left');
+    params.sources = generateSourceString('left');
   } else if (sliderVal === '1') {
-    params.sources = reduceSourceValue('center-left');
+    params.sources = generateSourceString('center-left');
   } else if (sliderVal === '2') {
-    params.sources = reduceSourceValue('center');
+    params.sources = generateSourceString('center');
   } else if (sliderVal === '3') {
-    params.sources = reduceSourceValue('center-right');
+    params.sources = generateSourceString('center-right');
   } else if (sliderVal === '4'){
-    params.sources = reduceSourceValue('right');
+    params.sources = generateSourceString('right');
   }
 
   const queryParams = formatQueryParams(params);
@@ -136,12 +201,10 @@ function getNews(searchQuery, sliderVal) {
     .then(responseJson => displayResults(responseJson, sliderVal));
 }
 
+// Display articles and change headline text color with slider
+
 function displayResults(res, sliderVal) {
   $('#js-results').empty();
-
-  if (res.articles.length === 0) {
-    $('#js-results').append(`<li>No results found</li>`);
-  }
 
   for (let i = 0; i < res.articles.length; i++) {
     $('#js-results').append(`
@@ -149,10 +212,14 @@ function displayResults(res, sliderVal) {
         <h3>${res.articles[i].title}</h3>
         <p><strong>${res.articles[i].source.name}</strong></p>
         <p>${res.articles[i].description}</p>
-        <a href="${res.articles[i].url}">Read more</a>
+        <a href="${res.articles[i].url}" target="_blank">Source</a>
       </li>
       <hr>
     `);
+  }
+
+  if (res.articles.length === 0) {
+    $('#js-results').append(`<li>No results found</li>`);
   }
 
   if (sliderVal === '0') {
@@ -170,19 +237,76 @@ function displayResults(res, sliderVal) {
   $('#js-results').removeClass('hidden');
 } 
 
-function watchForm() {
+// Event handlers
+
+function initEventHandlers() {
+  buttonHandler();
+  sliderHandler();
+  headerHandler();
+  footerHandler();
+}
+
+function buttonHandler() {
   $('form').submit(event => {
     event.preventDefault();
     let searchQuery = $('#js-search').val();
     let sliderVal = $('#js-slider').val();
     getNews(searchQuery, sliderVal);
+    // Reset footer
+    $('footer').empty();
+    $('footer').append(`<h2>About</h2>`);
+    footerHandler();
   });
+}
 
+function sliderHandler() {
   $('input[type=range]').on('input', function() {
     let searchQuery = $('#js-search').val();
     let sliderVal = $('#js-slider').val();
     getNews(searchQuery, sliderVal);
+    // Reset footer
+    $('footer').empty();
+    $('footer').append(`<h2>About</h2>`);
+    footerHandler();
   })
 }
 
-$(watchForm);
+function headerHandler() {
+  // Reset footer if user wants to go back to index
+  $('h1').click(() => {
+    $('#js-results').addClass('hidden');
+    $('footer').empty();
+    $('footer').append(`<h2>About</h2>`);
+    footerHandler();
+  });
+}
+
+function footerHandler() {
+  $('h2').click(event => {
+    $('#js-results').addClass('hidden');
+    $('footer').empty();
+    generateAbout();
+
+    // Handle tab changes
+    $('.tab').click(event => {
+      let elem = $(event.target);
+      $('#source-list ul').removeClass('hidden')
+      $('.tab').removeClass('active-tab');
+      elem.addClass('active-tab');
+      
+      if ( elem.is("#blue") ) {
+        populateSources('left');
+      } else if ( elem.is("#lightblue") ) {
+        populateSources('center-left');
+      } else if ( elem.is("#grey") ) {
+        populateSources('center');
+      } else if ( elem.is("#lightred") ) {
+        populateSources('center-right');
+      } else if ( elem.is("#red") ){
+        populateSources('right');
+      }
+    });
+  });
+}
+
+$(initEventHandlers);

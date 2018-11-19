@@ -19,18 +19,22 @@
   </header>
 
   <main role="main">
-      <form>
-        <fieldset>
-          <legend>Search form</legend>
-          <label for="search">Search headlines</label>
-          <input type="text" name="search" id="js-search" placeholder="Search top US headlines">
-          <input type="submit" value="Go!">
-          <label for="slider">Choose your bias on the slider</label>
-          <input type="range" name="slider" id="js-slider" min="0" max="4" value="2">
-        </fieldset>
-      </form>
+    <form>
+      <fieldset>
+        <legend>Search form</legend>
+        <label for="search">Search headlines</label>
+        <input type="text" name="search" id="js-search" placeholder="Search top US headlines">
+        <input type="submit" value="Go!">
+        <label for="slider">Choose your bias on the slider</label>
+        <input type="range" name="slider" id="js-slider" min="0" max="4" value="2">
+      </fieldset>
+    </form>
     <ul id="js-results" class="hidden"></ul>
   </main>
+
+  <footer role="contentinfo">
+    <h2>About</h2>
+  </footer>
 
   <script src="script.js"></script>
 </body>
