@@ -110,7 +110,6 @@ const newsSources = [
 ];
 
 // Utility functions
-
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
@@ -169,7 +168,6 @@ function generateAbout() {
 }
 
 // Get articles from News API based on user input
-
 function getNews(searchQuery, sliderVal) {
   const params = {
     q: searchQuery,
@@ -190,7 +188,7 @@ function getNews(searchQuery, sliderVal) {
   const queryParams = formatQueryParams(params);
   const url = `https://newsapi.org/v2/top-headlines?${queryParams}`;
   
-  // Exposing API key in source code might be a problem
+  // Exposing API key in source code might be a problem?
   const options = {
     headers: new Headers({
       "X-Api-Key": "e8461a1257724e9c8b77b3e8cdbc5af1"})
@@ -202,7 +200,6 @@ function getNews(searchQuery, sliderVal) {
 }
 
 // Display articles and change headline text color with slider
-
 function displayResults(res, sliderVal) {
   $('#js-results').empty();
 
@@ -238,7 +235,6 @@ function displayResults(res, sliderVal) {
 } 
 
 // Event handlers
-
 function initEventHandlers() {
   buttonHandler();
   sliderHandler();
@@ -272,7 +268,7 @@ function sliderHandler() {
 }
 
 function headerHandler() {
-  // Reset footer if user wants to go back to index
+  // Return to 'home' state
   $('h1').click(() => {
     $('#js-results').addClass('hidden');
     $('footer').empty();
