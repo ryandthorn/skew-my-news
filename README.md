@@ -2,7 +2,7 @@
 
 Uses the News API to display headlines about a search query from a chosen part of the political spectrum. 
 
-## Check it out
+## Check It Out
 
 https://ryandthorn.github.io/skew-my-news/
 
@@ -30,4 +30,4 @@ Bias of each source determined by [AllSides Media Bias Ratings](https://www.alls
 
 ## Languages
 
-HTML/CSS/Javascript + jQuery
+HTML/CSS/JavaScript + jQuery
