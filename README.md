@@ -8,11 +8,11 @@ https://ryandthorn.github.io/skew-my-news/
 
 ## Screenshots
 
-![Home](/screenshots/Home.png "Home")
-![About](/screenshots/About.png "About")
-![Left](/screenshots/Left.png "Left")
-![Right](/screenshots/Right.png "Right")
-![Mobile View](/screenshots/Mobile.png "Mobile")
+![Home](https://github.com/ryandthorn/skew-my-news/blob/master/screenshots/Home.PNG "Home")
+![About](https://github.com/ryandthorn/skew-my-news/blob/master/screenshots/About.PNG "About")
+![Left](https://github.com/ryandthorn/skew-my-news/blob/master/screenshots/Left.PNG "Left")
+![Right](https://github.com/ryandthorn/skew-my-news/blob/master/screenshots/Right.PNG "Right")
+![Mobile View](https://github.com/ryandthorn/skew-my-news/blob/master/screenshots/Mobile.PNG "Mobile")
 
 ## How It Works
 
