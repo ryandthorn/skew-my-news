@@ -164,7 +164,7 @@ function generateAbout() {
     </div>
   </section>
   <p>Copyright &copy; 2018 Ryan Thorn for Thinkful</p>
-`);
+  `);
 }
 
 // Get articles from News API based on user input
