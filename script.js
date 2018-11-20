@@ -147,7 +147,7 @@ function populateSources(bias) {
 
 function generateAbout() {
   $('footer').append(`
-  <h2>About</h2>
+  <button>About</button>
   <p>This web app queries the <a href="https://newsapi.org" target="_blank">News API</a> to search for top headlines within a selected range of sources organized by ideological bias.</p>
   <p>Bias of each source determined by <a href="https://www.allsides.com/media-bias/media-bias-ratings" target="_blank">AllSides Media Bias Ratings</a>.</p>
   <p>Click on these tabs to see which sources correspond to each bias:</p>
@@ -276,7 +276,7 @@ function buttonHandler() {
     getNews(searchQuery, sliderVal);
     // Reset footer
     $('footer').empty();
-    $('footer').append(`<h2>About</h2>`);
+    $('footer').append(`<button>About</button>`);
     footerHandler();
   });
 }
@@ -288,7 +288,7 @@ function sliderHandler() {
     getNews(searchQuery, sliderVal);
     // Reset footer
     $('footer').empty();
-    $('footer').append(`<h2>About</h2>`);
+    $('footer').append(`<button>About</button>`);
     footerHandler();
   })
 }
@@ -298,13 +298,13 @@ function headerHandler() {
   $('h1').click(() => {
     $('#js-results').addClass('hidden');
     $('footer').empty();
-    $('footer').append(`<h2>About</h2>`);
+    $('footer').append(`<button>About</button>`);
     footerHandler();
   });
 }
 
 function footerHandler() {
-  $('h2').click(event => {
+  $('button').click(event => {
     $('#js-results').addClass('hidden');
     $('footer').empty();
     generateAbout();

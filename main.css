@@ -23,12 +23,15 @@ h1 {
   cursor: pointer;
 }
 
-h2 {
-  text-align: center;
+button {
+  display: block;
   font-family: 'Bangers', cursive;
-  margin: 1em auto;
-  font-size: 2em;
+  margin: 0 auto;
+  padding: .4em;
+  font-size: 1.5em;
   cursor: pointer;
+  border-radius: 10px;
+  border-style: none;
 }
 
 main {
