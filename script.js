@@ -167,12 +167,21 @@ function generateAbout() {
   `);
 }
 
-// Get articles from News API based on user input
-function getNews(searchQuery, sliderVal) {
-  const params = {
-    q: searchQuery,
-  };
-  
+function generateResults(res) {
+  for (let i = 0; i < res.articles.length; i++) {
+    $('#js-results').append(`
+      <li>
+        <h3>${res.articles[i].title}</h3>
+        <p><strong>${res.articles[i].source.name}</strong></p>
+        <p>${res.articles[i].description}</p>
+        <a href="${res.articles[i].url}" target="_blank">Source</a>
+      </li>
+      <hr>
+    `);
+  }
+}
+
+function determineBias(params, sliderVal) {
   if (sliderVal === '0') {
     params.sources = generateSourceString('left');
   } else if (sliderVal === '1') {
@@ -184,7 +193,41 @@ function getNews(searchQuery, sliderVal) {
   } else if (sliderVal === '4'){
     params.sources = generateSourceString('right');
   }
+}
 
+function setHeadlineColor(sliderVal) {
+  if (sliderVal === '0') {
+    $("h3").css("color", "#0200a2");
+  } else if (sliderVal === '1') {
+    $("h3").css("color", "#0c50fc");
+  } else if (sliderVal === '2') {
+    $("h3").css("color", "#3d3d3d");
+  } else if (sliderVal === '3') {
+    $("h3").css("color", "#e21218");
+  } else if (sliderVal === '4'){
+    $("h3").css("color", "#a00106");;
+  }
+}
+
+function displayResults(res, sliderVal) {
+  $('#js-results').empty();
+
+  generateResults(res);
+  setHeadlineColor(sliderVal);
+
+  $('#js-results').removeClass('hidden');
+} 
+
+// Get articles from News API based on user input
+function getNews(searchQuery, sliderVal) {
+  const params = {
+    q: searchQuery,
+  };
+
+  // Choose which sources to query
+  determineBias(params, sliderVal);
+  
+  // Create URL and header for fetch
   const queryParams = formatQueryParams(params);
   const url = `https://newsapi.org/v2/top-headlines?${queryParams}`;
   const options = {
@@ -199,43 +242,23 @@ function getNews(searchQuery, sliderVal) {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayResults(responseJson, sliderVal));
+    .then(responseJson => {
+      // If 'top headlines' returns no results, query the 'everything' endpoint
+      if (responseJson.totalResults === 0) {
+        const everythingEndpoint = `https://newsapi.org/v2/everything?${queryParams}`;
+        fetch(everythingEndpoint, options)
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.statusText);
+          })
+          .then(responseJson => displayResults(responseJson, sliderVal));
+      }
+      // Otherwise display top headlines
+      displayResults(responseJson, sliderVal);
+    });
 }
-
-// Display articles and change headline text color with slider
-function displayResults(res, sliderVal) {
-  $('#js-results').empty();
-
-  for (let i = 0; i < res.articles.length; i++) {
-    $('#js-results').append(`
-      <li>
-        <h3>${res.articles[i].title}</h3>
-        <p><strong>${res.articles[i].source.name}</strong></p>
-        <p>${res.articles[i].description}</p>
-        <a href="${res.articles[i].url}" target="_blank">Source</a>
-      </li>
-      <hr>
-    `);
-  }
-
-  if (res.articles.length === 0) {
-    $('#js-results').append(`<li>No results found</li>`);
-  }
-
-  if (sliderVal === '0') {
-    $("h3").css("color", "#0200a2");
-  } else if (sliderVal === '1') {
-    $("h3").css("color", "#0c50fc");
-  } else if (sliderVal === '2') {
-    $("h3").css("color", "#3d3d3d");
-  } else if (sliderVal === '3') {
-    $("h3").css("color", "#e21218");
-  } else if (sliderVal === '4'){
-    $("h3").css("color", "#a00106");;
-  }
-
-  $('#js-results').removeClass('hidden');
-} 
 
 // Event handlers
 function initEventHandlers() {
